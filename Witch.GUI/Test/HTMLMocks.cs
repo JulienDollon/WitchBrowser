@@ -11,7 +11,7 @@ namespace Witch.GUI.Test
         private static readonly string folder = "Test";
         private static readonly string filename = "helloworld.html";
 
-        public static async Task<string> getHelloWorldWellFormedHtmlDocument()
+        public static async Task<string> GetHelloWorldWellFormedHtmlDocument()
         {
             var rootFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var testFolder = await rootFolder.GetFolderAsync(folder);

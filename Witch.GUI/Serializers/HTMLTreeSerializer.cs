@@ -3,71 +3,96 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Witch.GUI.HTMLModel;
 using Witch.GUI.Model;
 
 namespace Witch.GUI.Serializers
 {
     class HTMLTreeSerializer
     {
-        private HTMLElement extractTag(string line)
+        private IHTMLControl instantiateHtmlControl(string line)
         {
             if (string.IsNullOrWhiteSpace(line) || !line.Contains("<"))
             {
-                return null;
+                throw new KeyNotFoundException();
             }
 
             string[] splittedLine = line.Split('<');
             string stringTag = splittedLine[1];
-            HTMLTag serializedTag = HTMLTag.Lookup(stringTag);
-            var htmlElt = new HTMLElement(serializedTag);
-            if (serializedTag.ClosingTag)
+            IHTMLControl control = HTMLControlFactory.CreateControl(stringTag);
+            if (hasInnerText(control))
             {
-                htmlElt.InnerText = splittedLine[0];
+                setInnerText(control, splittedLine[0]);
             }
-            return htmlElt;
+            return control;
         }
 
-        public NTree<HTMLElement> serializeTree(string content)
+        private void setInnerText(IHTMLControl control, string innerText)
         {
-            var arrayOfTag = content.Split('>');
+            ((IInnerTextProperty)control).InnerText = innerText;
+        }
 
-            NTree<HTMLElement> tree = null;
-            NTree<HTMLElement> currentPointer = null;
+        private string[] splitTags(string htmlSource)
+        {
+            char[] charSeparators = new char[] { '>' };
+            string[] arrayOfTag = htmlSource.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
+            return arrayOfTag;
+        }
+
+        public NTree<IHTMLControl> serializeTree(string htmlSource)
+        {
+            string[] arrayOfTag = splitTags(htmlSource);
+
+            NTree<IHTMLControl> tree = null;
+            NTree<IHTMLControl> currentPointer = null;
 
             for (int i = 0; i < arrayOfTag.Length; i++)
             {
-                HTMLElement element = extractTag(arrayOfTag[i]);
-                if (element == null)
+                IHTMLControl element = instantiateHtmlControl(arrayOfTag[i]);
+                if (isFirstHtmlTag(element))
                 {
-                    continue;
-                }
-                else if (IsFirstHtmlTag(element))
-                {
-                    tree = new NTree<HTMLElement>(element);
+                    tree = new NTree<IHTMLControl>(element);
                     currentPointer = tree;
                 }
-                else if (!IsClosingHtmlTag(element))
+                else if (!isClosingHtmlTag(element))
                 {
                     var newHtmlElementInTree = currentPointer.AddChild(element, currentPointer);
                     currentPointer = newHtmlElementInTree;
                 }
+                else if (isClosingHtmlTag(element))
+                {
+                    if(hasInnerText(element))
+                    {
+                        setInnerText(currentPointer.Data, getInnerText(element));
+                    }
+                    currentPointer = currentPointer.Parent;
+                }
                 else
                 {
-                    currentPointer.Data.InnerText = element.InnerText;
-                    currentPointer = currentPointer.Parent;
+                    throw new KeyNotFoundException("Not supposed to come here, ever");
                 }
             }
             return tree;
         }
 
-        private bool IsClosingHtmlTag(HTMLElement element)
+        private string getInnerText(IHTMLControl element)
         {
-            return element.Tag.ClosingTag;
+            return ((IInnerTextProperty)element).InnerText;
         }
 
-        private bool IsFirstHtmlTag(HTMLElement element)
+        private bool hasInnerText(IHTMLControl element)
         {
-            return element.Tag.Value == HTMLTag.HTML.Value && !element.Tag.ClosingTag;
+            return element is IInnerTextProperty;
+        }
+
+        private bool isClosingHtmlTag(IHTMLControl element)
+        {
+            return element.IsClosing;
+        }
+
+        private bool isFirstHtmlTag(IHTMLControl element)
+        {
+            return element is HTMLElement && !element.IsClosing;
         }
     }
 }

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Witch.GUI.Model
 {
-    class HTMLElement
+    class HTMLElement : IHTMLControl
     {
-        public HTMLElement(HTMLTag tag)
+        public HTMLElement()
         {
-            this.Tag = tag;
         }
 
-        public HTMLTag Tag { get; }
-
-        public string InnerText { get; set; }
+        public override string ToString()
+        {
+            return "HTML";
+        }
     }
 }

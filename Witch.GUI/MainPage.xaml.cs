@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Witch.GUI.HTMLModel;
 using Witch.GUI.Model;
 
 namespace Witch.GUI
@@ -25,9 +26,9 @@ namespace Witch.GUI
             this.InitializeComponent();
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void page_Loaded(object sender, RoutedEventArgs e)
         {
-            string content = await Test.HTMLMocks.getHelloWorldWellFormedHtmlDocument();
+            string content = await Test.HTMLMocks.GetHelloWorldWellFormedHtmlDocument();
             displayHtmlTest(content);
         }
 
@@ -40,10 +41,10 @@ namespace Witch.GUI
             displayTree(tree);
         }
 
-        private void displayTree(NTree<HTMLElement> tree)
+        private void displayTree(NTree<IHTMLControl> tree)
         {
             txt_output_tree.PlaceholderText = "";
-            NTree<HTMLElement>.DFSInOrder(tree, displayNode);
+            NTree<IHTMLControl>.DFSInOrder(tree, displayNode);
         }
 
         private void displayHtmlTest(string content)
@@ -51,11 +52,16 @@ namespace Witch.GUI
             txt_input_doc.Document.SetText(Windows.UI.Text.TextSetOptions.None, content);
         }
 
-        private void displayNode(NTree<HTMLElement> node)
+        private void displayNode(NTree<IHTMLControl> node)
         {
             int depth = node.ComputeDepth();
             string increment = new String('=', depth);
-            txt_output_tree.PlaceholderText += increment + node.Data.Tag.Value + node.Data.InnerText + "\n";
+            string dataToDisplay = increment + node.Data.ToString();
+            if (node.Data is IInnerTextProperty)
+            {
+                dataToDisplay += ((IInnerTextProperty)node.Data).InnerText;
+            }
+            txt_output_tree.PlaceholderText += dataToDisplay + "\n";
         }
 
         private void txt_input_doc_TextChanged(object sender, RoutedEventArgs e)
