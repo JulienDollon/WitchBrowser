@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Witch.GUI.HTMLModel;
-using Witch.GUI.Model;
+using Witch.GUI.HTML;
 
 namespace Witch.GUI.Sanitizers
 {
@@ -13,10 +12,12 @@ namespace Witch.GUI.Sanitizers
     {
         public string Sanitize(string sanitizeFrom)
         {
-            foreach (string tag in HTMLControlFactory.getAllSupportedElements())
+            foreach (string tag in SupportedHtmlControls.GetSupportedElements())
             {
                 Regex r = new Regex("<" + tag + ">", RegexOptions.IgnoreCase);
                 sanitizeFrom = r.Replace(sanitizeFrom, "<" + tag + ">");
+                r = new Regex("<" + tag + " ", RegexOptions.IgnoreCase);
+                sanitizeFrom = r.Replace(sanitizeFrom, "<" + tag + " ");
                 r = new Regex("</" + tag + ">", RegexOptions.IgnoreCase);
                 sanitizeFrom = r.Replace(sanitizeFrom, "</" + tag + ">");
             }

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Witch.GUI.Model;
+using Witch.GUI.HTML;
 
-namespace Witch.GUI.HTMLModel
+namespace Witch.GUI.HTML
 {
-    class DivElement : IHTMLControl
+    class H1Element : IHTMLControl, IInnerTextProperty
     {
+        public string InnerText { get; set; }
         public override string ToString()
         {
-            return "DIV";
+            return "H1";
         }
     }
 }

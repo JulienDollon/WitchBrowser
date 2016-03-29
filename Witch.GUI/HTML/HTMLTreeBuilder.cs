@@ -1,37 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Witch.GUI.HTMLModel;
-using Witch.GUI.Model;
 
-namespace Witch.GUI.Serializers
+namespace Witch.GUI.HTML
 {
-    class HTMLTreeSerializer
+    class HTMLTreeBuilder
     {
-        private IHTMLControl instantiateHtmlControl(string line)
-        {
-            if (string.IsNullOrWhiteSpace(line) || !line.Contains("<"))
-            {
-                throw new KeyNotFoundException();
-            }
-
-            string[] splittedLine = line.Split('<');
-            string stringTag = splittedLine[1];
-            IHTMLControl control = HTMLControlFactory.CreateControl(stringTag);
-            if (hasInnerText(control))
-            {
-                setInnerText(control, splittedLine[0]);
-            }
-            return control;
-        }
-
-        private void setInnerText(IHTMLControl control, string innerText)
-        {
-            ((IInnerTextProperty)control).InnerText = innerText;
-        }
-
+        private HTMLControlFactory htmlControlfactory = new HTMLControlFactory();
         private string[] splitTags(string htmlSource)
         {
             char[] charSeparators = new char[] { '>' };
@@ -39,7 +13,7 @@ namespace Witch.GUI.Serializers
             return arrayOfTag;
         }
 
-        public NTree<IHTMLControl> serializeTree(string htmlSource)
+        public NTree<IHTMLControl> BuildTree(string htmlSource)
         {
             string[] arrayOfTag = splitTags(htmlSource);
 
@@ -48,7 +22,7 @@ namespace Witch.GUI.Serializers
 
             for (int i = 0; i < arrayOfTag.Length; i++)
             {
-                IHTMLControl element = instantiateHtmlControl(arrayOfTag[i]);
+                IHTMLControl element = htmlControlfactory.CreateControl(arrayOfTag[i]);
                 if (isFirstHtmlTag(element))
                 {
                     tree = new NTree<IHTMLControl>(element);
@@ -61,10 +35,7 @@ namespace Witch.GUI.Serializers
                 }
                 else if (isClosingHtmlTag(element))
                 {
-                    if(hasInnerText(element))
-                    {
-                        setInnerText(currentPointer.Data, getInnerText(element));
-                    }
+                    htmlControlfactory.MergeControl(currentPointer.Data, element);
                     currentPointer = currentPointer.Parent;
                 }
                 else
@@ -73,16 +44,6 @@ namespace Witch.GUI.Serializers
                 }
             }
             return tree;
-        }
-
-        private string getInnerText(IHTMLControl element)
-        {
-            return ((IInnerTextProperty)element).InnerText;
-        }
-
-        private bool hasInnerText(IHTMLControl element)
-        {
-            return element is IInnerTextProperty;
         }
 
         private bool isClosingHtmlTag(IHTMLControl element)

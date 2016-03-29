@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Witch.GUI.Model
+namespace Witch.GUI.HTML
 {
-    class HeadElement : IHTMLControl
+    class HTMLElement : IHTMLControl
     {
         public override string ToString()
         {
-            return "HEAD";
+            return "HTML";
         }
     }
 }

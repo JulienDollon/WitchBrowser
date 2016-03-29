@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Witch.GUI.HTMLModel
+namespace Witch.GUI.HTML
 {
     interface IInnerTextProperty
     {

@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Witch.GUI.HTML;
 
-namespace Witch.GUI.Model
+namespace Witch.GUI.HTML
 {
-    class HTMLElement : IHTMLControl
+    class DivElement : IHTMLControl
     {
-        public HTMLElement()
-        {
-        }
-
         public override string ToString()
         {
-            return "HTML";
+            return "DIV";
         }
     }
 }

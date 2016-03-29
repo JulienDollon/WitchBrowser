@@ -14,8 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Witch.GUI.HTMLModel;
-using Witch.GUI.Model;
+using Witch.GUI.HTML;
+using Witch.GUI.HTML;
 
 namespace Witch.GUI
 {
@@ -37,7 +37,7 @@ namespace Witch.GUI
             string content = null;
             txt_input_doc.Document.GetText(Windows.UI.Text.TextGetOptions.None, out content);
             content = new Sanitizers.Sanitizer().Sanitize(content);
-            var tree = new Serializers.HTMLTreeSerializer().serializeTree(content);
+            var tree = new HTMLTreeBuilder().BuildTree(content);
             displayTree(tree);
         }
 
@@ -56,12 +56,21 @@ namespace Witch.GUI
         {
             int depth = node.ComputeDepth();
             string increment = new String('=', depth);
-            string dataToDisplay = increment + node.Data.ToString();
+            string dataToDisplay = String.Format("{0} {1} [ID:{2}]", increment, node.Data.ToString(), node.Data.UniqueId);
+
+
+
             if (node.Data is IInnerTextProperty)
             {
-                dataToDisplay += ((IInnerTextProperty)node.Data).InnerText;
+                dataToDisplay = String.Format("{0} [InnerText:{1}] ", dataToDisplay, ((IInnerTextProperty)node.Data).InnerText);
             }
-            txt_output_tree.PlaceholderText += dataToDisplay + "\n";
+
+            foreach (var parameter in node.Data.Parameters)
+            {
+                dataToDisplay = String.Format("{0} [Param:{1}] ", dataToDisplay, parameter.ToString());
+            }
+
+           txt_output_tree.PlaceholderText += String.Format("{0} \n", dataToDisplay);
         }
 
         private void txt_input_doc_TextChanged(object sender, RoutedEventArgs e)

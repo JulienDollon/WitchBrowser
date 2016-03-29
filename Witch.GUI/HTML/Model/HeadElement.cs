@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Witch.GUI.Model;
 
-namespace Witch.GUI.HTMLModel
+namespace Witch.GUI.HTML
 {
-    class UnknownElement : IHTMLControl
+    class HeadElement : IHTMLControl
     {
         public override string ToString()
         {
-            return "UNKNOWN";
+            return "HEAD";
         }
     }
 }
