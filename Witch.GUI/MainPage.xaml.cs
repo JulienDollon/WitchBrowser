@@ -65,7 +65,7 @@ namespace Witch.GUI
                 dataToDisplay = String.Format("{0} [InnerText:{1}] ", dataToDisplay, ((IInnerTextProperty)node.Data).InnerText);
             }
 
-            foreach (var parameter in node.Data.Parameters)
+            foreach (var parameter in node.Data.Attributes)
             {
                 dataToDisplay = String.Format("{0} [Param:{1}] ", dataToDisplay, parameter.ToString());
             }

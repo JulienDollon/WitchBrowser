@@ -6,75 +6,69 @@ namespace Witch.GUI.HTML
 {
     class HTMLControlFactory
     {
+        class Tag
+        {
+            public string TagName { get; set; }
+            public bool IsClosing { get; set; }
+            public string InnerText { get; set; }
+            public Dictionary<string, string> Attributes { get; set; }
+        }
 
-        private bool IsClosingHtml(string rawHtml)
+        private bool isClosingHtml(string rawHtml)
         {
             return rawHtml.Contains("/");
         }
 
-        private void extractClosingHtmlTagData(
-            string rawHtml,
-            out string tagName,
-            out bool isClosing,
-            out string innerText,
-            out Dictionary<string, string> parameters)
+        private void extractClosingHtmlTagData(string rawHtml, out Tag tag)
         {
-            parameters = new Dictionary<string, string>();
-            isClosing = true;
+            tag = new Tag();
+            tag.Attributes = new Dictionary<string, string>();
+            tag.IsClosing = true;
             string[] rawHtmlSplitted = rawHtml.Split(new[] { "</" }, StringSplitOptions.None);
-            innerText = rawHtmlSplitted[0];
-            tagName = rawHtmlSplitted[1];
+            tag.InnerText = rawHtmlSplitted[0];
+            tag.TagName = rawHtmlSplitted[1];
         }
 
-        private void extractOpeningHtmlTagData(
-            string rawHtml,
-            out string tagName,
-            out bool isClosing,
-            out string innerText,
-            out Dictionary<string, string> parameters)
+        private void extractOpeningHtmlTagData(string rawHtml, out Tag tag)
         {
-            parameters = new Dictionary<string, string>();
-            innerText = null;
-            isClosing = false;
+            tag = new Tag();
+            tag.Attributes = new Dictionary<string, string>();
+            tag.InnerText = null;
+            tag.IsClosing = false;
             string[] rawHtmlSplitted = rawHtml.Split(new char[] { '<' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (hasParameters(rawHtmlSplitted[0]))
+            if (hasAttributes(rawHtmlSplitted[0]))
             {
-                tagName = rawHtmlSplitted[0].Split(new[] { " " }, StringSplitOptions.None)[0];
-                parameters = extractParameters(rawHtml);
+                tag.TagName = rawHtmlSplitted[0].Split(new[] { " " }, StringSplitOptions.None)[0];
+                tag.Attributes = extractAttributes(rawHtml);
             }
             else
             {
-                tagName = rawHtmlSplitted[0];
+                tag.TagName = rawHtmlSplitted[0];
             }
         }
 
-        private void extractHtmlTagData(
-            string rawHtml,
-            out string tagName,
-            out bool isClosing,
-            out string innerText,
-            out Dictionary<string, string> parameters)
+        private void extractHtmlTagData(string rawHtml, out Tag tag)
         {
-            if (IsClosingHtml(rawHtml))
+            if (isClosingHtml(rawHtml))
             {
-                extractClosingHtmlTagData(rawHtml, out tagName, out isClosing, out innerText, out parameters);
+                extractClosingHtmlTagData(rawHtml, out tag);
             }
             else
             {
-                extractOpeningHtmlTagData(rawHtml, out tagName, out isClosing, out innerText, out parameters);
+                extractOpeningHtmlTagData(rawHtml, out tag);
             }
         }
 
-        private bool hasParameters(string rawHtml)
+        private bool hasAttributes(string rawHtml)
         {
             return rawHtml.Contains(" ") && !string.IsNullOrWhiteSpace(rawHtml);
         }
 
-        private Dictionary<string, string> extractParameters(string tagString)
+        private Dictionary<string, string> extractAttributes(string tagString)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
-            if (tagString == null || !hasParameters(tagString))
+            if (tagString == null || !hasAttributes(tagString))
             {
                 return result;
             }
@@ -82,7 +76,7 @@ namespace Witch.GUI.HTML
             string[] parameterStrings = tagString.Split(' ');
             for (int i = 1; i < parameterStrings.Length; i++)
             {
-                HTMLParameterExtractor extractor = new HTMLParameterExtractor();
+                HTMLAttributeExtractor extractor = new HTMLAttributeExtractor();
                 var parameter = extractor.Extract(parameterStrings[i]);
                 result.Add(parameter.Key, parameter.Value);
             }
@@ -109,29 +103,25 @@ namespace Witch.GUI.HTML
                 throw new InvalidOperationException();
             }
 
-            string tagString = null;
-            string innerText = null;
-            bool isClosing = false;
-            Dictionary<string, string> parameters = null;
-
-            extractHtmlTagData(rawHtmlTag, out tagString, out isClosing, out innerText, out parameters);
-            return createInstance(tagString, isClosing, innerText, parameters);
+            Tag tag = null;
+            extractHtmlTagData(rawHtmlTag, out tag);
+            return createInstance(tag);
         }
 
-        private IHTMLControl createInstance(string tagString, bool isClosing, string innerText, Dictionary<string, string> parameters)
+        private IHTMLControl createInstance(Tag tag)
         {
-            foreach (Type tag in SupportedHtmlControls.AllElementsType)
+            foreach (Type tagType in SupportedHtmlControls.AllElementsType)
             {
-                var obj = (IHTMLControl)Activator.CreateInstance(tag);
-                if (obj.ToString().Equals(tagString))
+                var obj = (IHTMLControl)Activator.CreateInstance(tagType);
+                if (obj.ToString().Equals(tag.TagName))
                 {
-                    obj.IsClosing = isClosing;
-                    setInnerText(obj, innerText);
-                    obj.Parameters = parameters;
+                    obj.IsClosing = tag.IsClosing;
+                    setInnerText(obj, tag.InnerText);
+                    obj.Attributes = tag.Attributes;
                     return obj;
                 }
             }
-            return new UnknownElement() { IsClosing = isClosing };
+            return new UnknownElement() { IsClosing = tag.IsClosing };
         }
 
         private void setInnerText(IHTMLControl control, string innerText)

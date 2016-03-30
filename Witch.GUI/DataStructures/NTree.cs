@@ -48,11 +48,6 @@ namespace Witch.GUI
 
             visit(node);
 
-            if (node.Children == null)
-            {
-                return;
-            }
-
             foreach (var item in node.Children)
             {
                 DFSInOrder(item, visit);
