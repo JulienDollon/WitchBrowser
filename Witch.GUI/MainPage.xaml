@@ -22,7 +22,22 @@
         <RichEditBox x:Name="txt_output_tree" Grid.Row="2" IsReadOnly="True" />
         <TextBlock x:Name="lbl_compile" Text="DOES NOT COMPILE!!!" Visibility="Collapsed" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ScrollViewer Grid.Column="1" Grid.RowSpan="3">
-            <Canvas x:Name="canv_view_output"/>
+            <ScrollViewer.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </ScrollViewer.Resources>
+            <ListView x:Name="view_output" Background="White" SelectionMode="None">
+                <ListView.ItemContainerTransitions>
+                    <TransitionCollection/>
+                </ListView.ItemContainerTransitions>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapGrid Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
         </ScrollViewer>
     </Grid>
 </Page>

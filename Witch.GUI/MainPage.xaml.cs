@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Witch.GUI.HTML;
-using Witch.GUI.HTML;
 using Witch.GUI.Rendering;
 
 namespace Witch.GUI
@@ -30,7 +29,7 @@ namespace Witch.GUI
         private async void page_Loaded(object sender, RoutedEventArgs e)
         {
             string content = await Test.HTMLMocks.GetHelloWorldWellFormedHtmlDocument();
-            this.renderer = new HTMLTreeRenderer(this.canv_view_output);
+            this.renderer = new HTMLTreeRenderer(this.view_output);
             displayHtmlTest(content);
         }
 
@@ -47,7 +46,7 @@ namespace Witch.GUI
         private void displayTree()
         {
             txt_output_tree.PlaceholderText = "";
-            NTree<IHTMLControl>.DFSInOrder(tree.Root, displayNode);
+            NTree<IHTMLControl>.DFS(tree.Root, displayNode);
         }
 
         private void displayHtmlTest(string content)
@@ -84,9 +83,9 @@ namespace Witch.GUI
 
         private void txt_input_doc_TextChanged(object sender, RoutedEventArgs e)
         {
+            buildHtml();
             try
             {
-                buildHtml();
                 renderHtml();
                 lbl_compile.Visibility = Visibility.Collapsed;
             }

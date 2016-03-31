@@ -47,10 +47,24 @@ namespace Witch.GUI
             }
 
             visit(node);
-
             foreach (var item in node.Children)
             {
                 DFSInOrder(item, visit);
+            }
+        }
+
+        public static void DFS(NTree<T> node, Action<NTree<T>> visit)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            visit(node);
+            NTree<T>[] children = node.Children.ToArray();
+            for (int i = children.Length - 1; i >= 0; i--)
+            {
+                DFS(children[i], visit);
             }
         }
     }

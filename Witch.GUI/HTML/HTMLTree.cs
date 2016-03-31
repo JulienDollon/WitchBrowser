@@ -22,7 +22,7 @@ namespace Witch.GUI.HTML
 
         private void buildIdCache()
         {
-            NTree<IHTMLControl>.DFSInOrder(this.Root, (NTree<IHTMLControl> control) =>
+            NTree<IHTMLControl>.DFS(this.Root, (NTree<IHTMLControl> control) =>
             {
                 string id = control.Data.UniqueId;
                 if (!string.IsNullOrWhiteSpace(id) && !idsCache.ContainsKey(id))

@@ -19,6 +19,7 @@ namespace Witch.GUI.Rendering
         {
             renderersTypes = new Dictionary<Type, Type>();
             renderersTypes.Add(typeof(H1Element), typeof(H1ElementUI));
+            renderersTypes.Add(typeof(IMGElement), typeof(IMGElementUI));
         }
 
         public HTMLControlUI Retrieve(Type type)

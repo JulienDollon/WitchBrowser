@@ -11,16 +11,16 @@ namespace Witch.GUI.Rendering
 {
     public class HTMLTreeRenderer
     {
-        public HTMLTreeRenderer(Canvas canvas)
+        public HTMLTreeRenderer(ItemsControl panel)
         {
-            if (canvas == null)
+            if (panel == null)
             {
                 throw new ArgumentNullException();
             }
-            this.canvas = canvas;
+            this.panel = panel;
         }
 
-        private readonly Canvas canvas;
+        private readonly ItemsControl panel;
 
         public void Render(HTMLTree tree)
         {
@@ -29,15 +29,15 @@ namespace Witch.GUI.Rendering
                 throw new ArgumentException();
             }
 
-            canvas.Children.Clear();
-            NTree<IHTMLControl>.DFSInOrder(tree.Root, (NTree<IHTMLControl> control) =>
+            panel.Items.Clear();
+            NTree<IHTMLControl>.DFS(tree.Root, (NTree<IHTMLControl> control) =>
             {
                 renderElement(control.Data);
             });
         }
 
         private HTMLControlUITypeRetriever rendererRetriever = new HTMLControlUITypeRetriever();
-        private void renderElement(IHTMLControl control, double top = 0, double left = 0, int index = 1)
+        private void renderElement(IHTMLControl control)
         {
             HTMLControlUI renderer = this.rendererRetriever.Retrieve(control.GetType());
             if (renderer == null)
@@ -46,10 +46,7 @@ namespace Witch.GUI.Rendering
             }
 
             UIElement element = renderer.Generate(control);
-            Canvas.SetLeft(element, left);
-            Canvas.SetTop(element, top);
-            Canvas.SetZIndex(element, index);
-            canvas.Children.Add(element);
+            panel.Items.Add(element);
         }
     }
 }

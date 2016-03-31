@@ -16,7 +16,8 @@ namespace Witch.GUI.HTML
             typeof(HeadElement),
             typeof(UnknownElement),
             typeof(H1Element),
-            typeof(DivElement)
+            typeof(DivElement),
+            typeof(IMGElement)
         };
 
         private static List<string> supportedElementsCache = null;

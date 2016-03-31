@@ -13,10 +13,15 @@ namespace Witch.GUI.HTML
 
         public string GetUniqueId(Dictionary<string, string> attributes)
         {
-            if (attributes.ContainsKey(UNIQUE_ID))
+            return GetAttribute(attributes, UNIQUE_ID);
+        }
+
+        public string GetAttribute(Dictionary<string, string> attributes, string name)
+        {
+            if (attributes.ContainsKey(name))
             {
                 string value = null;
-                attributes.TryGetValue(UNIQUE_ID, out value);
+                attributes.TryGetValue(name, out value);
                 return value.Replace("\"", ""); ;
             }
             return "";

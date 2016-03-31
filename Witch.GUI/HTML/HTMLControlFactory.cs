@@ -16,7 +16,7 @@ namespace Witch.GUI.HTML
 
         private bool isClosingHtml(string rawHtml)
         {
-            return rawHtml.Contains("/");
+            return rawHtml.Contains("/") && !rawHtml.Contains("http");
         }
 
         private void extractClosingHtmlTagData(string rawHtml, out Tag tag)

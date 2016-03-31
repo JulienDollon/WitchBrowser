@@ -114,6 +114,8 @@
     <Compile Include="HTML\HTMLControlFactory.cs" />
     <Compile Include="HTML\HTMLAttributeExtractor.cs" />
     <Compile Include="HTML\Model\IInnerTextProperty.cs" />
+    <Compile Include="HTML\Model\IMGElement.cs" />
+    <Compile Include="HTML\Model\ISourceProperty.cs" />
     <Compile Include="HTML\SupportedHtmlControls.cs" />
     <Compile Include="HTML\Model\UnknownElement.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -128,11 +130,11 @@
     <Compile Include="Rendering\HTMLControlUITypeRetriever.cs" />
     <Compile Include="Rendering\HTMLElementUI\H1ElementUI.cs" />
     <Compile Include="Rendering\HTMLElementUI\HTMLControlUI.cs" />
+    <Compile Include="Rendering\HTMLElementUI\IMGElementUI.cs" />
     <Compile Include="Rendering\HTMLTreeRenderer.cs" />
     <Compile Include="Sanitizers\CapsSanitizer.cs" />
     <Compile Include="Sanitizers\IdSanitizer.cs" />
     <Compile Include="Sanitizers\NewLineSanitizer.cs" />
-    <Compile Include="Sanitizers\NotClosedTagsSanitizer.cs" />
     <Compile Include="Sanitizers\NotValidHtmlSanitizer.cs" />
     <Compile Include="Sanitizers\ISanitizer.cs" />
     <Compile Include="Sanitizers\Sanitizer.cs" />
