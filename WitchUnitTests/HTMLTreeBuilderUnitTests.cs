@@ -19,5 +19,12 @@ namespace WitchUnitTests
             Assert.AreEqual(tree.Root.Data.ToString(), new HTMLElement().ToString());
             Assert.AreEqual(tree.Root.Children.First.Value.Data.ToString(), new BodyElement().ToString());
         }
+
+        [TestMethod]
+        public void GetByElementId_WithValidInputAndIds()
+        {
+            HTMLTree tree = builder.BuildTree("<HTML><BODY id=\"hello\">hello world</BODY></HTML>");
+            Assert.IsNotNull(tree.GetByElementId("hello"));
+        }
     }
 }

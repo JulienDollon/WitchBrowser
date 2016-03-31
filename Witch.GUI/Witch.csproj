@@ -112,7 +112,7 @@
     <Compile Include="HTML\Model\BodyElement.cs" />
     <Compile Include="HTML\Model\DivElement.cs" />
     <Compile Include="HTML\HTMLControlFactory.cs" />
-    <Compile Include="HTML\Model\HTMLAttributeExtractor.cs" />
+    <Compile Include="HTML\HTMLAttributeExtractor.cs" />
     <Compile Include="HTML\Model\IInnerTextProperty.cs" />
     <Compile Include="HTML\SupportedHtmlControls.cs" />
     <Compile Include="HTML\Model\UnknownElement.cs" />
@@ -125,6 +125,10 @@
     <Compile Include="HTML\Model\HTMLElement.cs" />
     <Compile Include="HTML\Model\IHTMLControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\HTMLControlUITypeRetriever.cs" />
+    <Compile Include="Rendering\HTMLElementUI\H1ElementUI.cs" />
+    <Compile Include="Rendering\HTMLElementUI\HTMLControlUI.cs" />
+    <Compile Include="Rendering\HTMLTreeRenderer.cs" />
     <Compile Include="Sanitizers\CapsSanitizer.cs" />
     <Compile Include="Sanitizers\IdSanitizer.cs" />
     <Compile Include="Sanitizers\NewLineSanitizer.cs" />

@@ -31,7 +31,7 @@ namespace Witch.GUI
         {
             int i = 0;
             NTree<T> pointer = Parent;
-            while (pointer != null) 
+            while (pointer != null)
             {
                 i++;
                 pointer = pointer.Parent;

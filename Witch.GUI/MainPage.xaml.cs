@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Witch.GUI.HTML;
 using Witch.GUI.HTML;
+using Witch.GUI.Rendering;
 
 namespace Witch.GUI
 {
@@ -29,22 +30,24 @@ namespace Witch.GUI
         private async void page_Loaded(object sender, RoutedEventArgs e)
         {
             string content = await Test.HTMLMocks.GetHelloWorldWellFormedHtmlDocument();
+            this.renderer = new HTMLTreeRenderer(this.canv_view_output);
             displayHtmlTest(content);
         }
 
+        private HTMLTree tree;
         private void buildHtml()
         {
             string content = null;
             txt_input_doc.Document.GetText(Windows.UI.Text.TextGetOptions.None, out content);
             content = new Sanitizers.Sanitizer().Sanitize(content);
-            var tree = new HTMLTreeBuilder().BuildTree(content).Root;
-            displayTree(tree);
+            tree = new HTMLTreeBuilder().BuildTree(content);
+            displayTree();
         }
 
-        private void displayTree(NTree<IHTMLControl> tree)
+        private void displayTree()
         {
             txt_output_tree.PlaceholderText = "";
-            NTree<IHTMLControl>.DFSInOrder(tree, displayNode);
+            NTree<IHTMLControl>.DFSInOrder(tree.Root, displayNode);
         }
 
         private void displayHtmlTest(string content)
@@ -73,11 +76,18 @@ namespace Witch.GUI
            txt_output_tree.PlaceholderText += String.Format("{0} \n", dataToDisplay);
         }
 
+        private HTMLTreeRenderer renderer;
+        private void renderHtml()
+        {
+            this.renderer.Render(tree);
+        }
+
         private void txt_input_doc_TextChanged(object sender, RoutedEventArgs e)
         {
             try
             {
                 buildHtml();
+                renderHtml();
                 lbl_compile.Visibility = Visibility.Collapsed;
             }
             catch

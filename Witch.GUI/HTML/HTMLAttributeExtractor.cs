@@ -17,7 +17,7 @@ namespace Witch.GUI.HTML
             {
                 string value = null;
                 attributes.TryGetValue(UNIQUE_ID, out value);
-                return value;
+                return value.Replace("\"", ""); ;
             }
             return "";
         }

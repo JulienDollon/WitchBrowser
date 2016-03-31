@@ -24,7 +24,7 @@ namespace WitchUnitTests
         {
             IHTMLControl control = factory.CreateControl("<HTML id=\"hello\">");
             Assert.AreEqual(control.Attributes.Count, 1);
-            Assert.AreEqual(control.UniqueId, "\"hello\"");
+            Assert.AreEqual(control.UniqueId, "hello");
         }
 
         [TestMethod]

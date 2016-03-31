@@ -22,7 +22,7 @@ namespace Witch.GUI.HTML
 
         private void buildIdCache()
         {
-            NTree<IHTMLControl>.DFSInOrder(this.Root, (NTree<IHTMLControl> control) => 
+            NTree<IHTMLControl>.DFSInOrder(this.Root, (NTree<IHTMLControl> control) =>
             {
                 string id = control.Data.UniqueId;
                 if (!string.IsNullOrWhiteSpace(id) && !idsCache.ContainsKey(id))
@@ -34,7 +34,7 @@ namespace Witch.GUI.HTML
 
         public NTree<IHTMLControl> Root { get; }
 
-        public NTree<IHTMLControl> getByElementId(string id)
+        public NTree<IHTMLControl> GetByElementId(string id)
         {
             NTree<IHTMLControl> value = null;
             idsCache.TryGetValue(id, out value);

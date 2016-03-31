@@ -22,7 +22,7 @@
         <RichEditBox x:Name="txt_output_tree" Grid.Row="2" IsReadOnly="True" />
         <TextBlock x:Name="lbl_compile" Text="DOES NOT COMPILE!!!" Visibility="Collapsed" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ScrollViewer Grid.Column="1" Grid.RowSpan="3">
-            <Grid/>
+            <Canvas x:Name="canv_view_output"/>
         </ScrollViewer>
     </Grid>
 </Page>
