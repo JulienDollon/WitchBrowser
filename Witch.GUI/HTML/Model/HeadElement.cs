@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Witch.GUI.HTML
 {
-    class HeadElement : IHTMLControl
+    public class HeadElement : IHTMLControl
     {
         private readonly HTMLAttributeExtractor attributeExtractor = new HTMLAttributeExtractor();
         public Dictionary<string, string> Attributes

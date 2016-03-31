@@ -37,7 +37,7 @@ namespace Witch.GUI
             string content = null;
             txt_input_doc.Document.GetText(Windows.UI.Text.TextGetOptions.None, out content);
             content = new Sanitizers.Sanitizer().Sanitize(content);
-            var tree = new HTMLTreeBuilder().BuildTree(content);
+            var tree = new HTMLTreeBuilder().BuildTree(content).Root;
             displayTree(tree);
         }
 

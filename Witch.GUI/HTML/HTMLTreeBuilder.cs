@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Witch.GUI.HTML
 {
-    class HTMLTreeBuilder
+    public class HTMLTreeBuilder
     {
         private HTMLControlFactory htmlControlfactory = new HTMLControlFactory();
         private string[] splitTags(string htmlSource)
         {
-            char[] charSeparators = new char[] { '>' };
-            string[] arrayOfTag = htmlSource.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
-            return arrayOfTag;
+            string[] arrayOfTag = htmlSource.SplitAndKeep(">");
+            return (from elt in arrayOfTag where !string.IsNullOrWhiteSpace(elt) select elt).ToArray();
         }
 
-        public NTree<IHTMLControl> BuildTree(string htmlSource)
+        public HTMLTree BuildTree(string htmlSource)
         {
             string[] arrayOfTag = splitTags(htmlSource);
 
@@ -43,7 +43,7 @@ namespace Witch.GUI.HTML
                     throw new KeyNotFoundException("Not supposed to come here, ever");
                 }
             }
-            return tree;
+            return new HTMLTree(tree);
         }
 
         private bool isClosingHtmlTag(IHTMLControl element)

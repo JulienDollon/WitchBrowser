@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Witch.GUI.HTML
 {
-    interface IInnerTextProperty
+    public interface IInnerTextProperty
     {
         string InnerText { get; set; }
     }

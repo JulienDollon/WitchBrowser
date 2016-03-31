@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Witch.GUI
 {
-    class NTree<T>
+    public class NTree<T>
     {
         public T Data { get; }
         public LinkedList<NTree<T>> Children { get; }

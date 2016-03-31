@@ -8,7 +8,7 @@ namespace Witch.GUI.Test
 {
     class HTMLMocks
     {
-        private static readonly string folder = "Test";
+        private static readonly string folder = "Tests";
         private static readonly string filename = "helloworld.html";
 
         public static async Task<string> GetHelloWorldWellFormedHtmlDocument()

@@ -4,7 +4,7 @@ using Witch.GUI.HTML;
 
 namespace Witch.GUI.HTML
 {
-    class HTMLControlFactory
+    public class HTMLControlFactory
     {
         class Tag
         {
@@ -24,6 +24,7 @@ namespace Witch.GUI.HTML
             tag = new Tag();
             tag.Attributes = new Dictionary<string, string>();
             tag.IsClosing = true;
+
             string[] rawHtmlSplitted = rawHtml.Split(new[] { "</" }, StringSplitOptions.None);
             tag.InnerText = rawHtmlSplitted[0];
             tag.TagName = rawHtmlSplitted[1];
@@ -50,6 +51,7 @@ namespace Witch.GUI.HTML
 
         private void extractHtmlTagData(string rawHtml, out Tag tag)
         {
+            rawHtml = rawHtml.Replace(">", "");
             if (isClosingHtml(rawHtml))
             {
                 extractClosingHtmlTagData(rawHtml, out tag);

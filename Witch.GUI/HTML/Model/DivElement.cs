@@ -7,7 +7,7 @@ using Witch.GUI.HTML;
 
 namespace Witch.GUI.HTML
 {
-    class DivElement : IHTMLControl
+    public class DivElement : IHTMLControl
     {
         private readonly HTMLAttributeExtractor attributeExtractor = new HTMLAttributeExtractor();
         public Dictionary<string, string> Attributes

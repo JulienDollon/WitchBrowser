@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Witch.GUI.HTMLModel.BodyElement" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\BodyElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.DivElement" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\DivElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.H1Element" Collapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\H1Element.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.HeadElement" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\HeadElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.HTMLControlFactory">
+    <Position X="25.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAMBAAAAABAAAAAQAAAAAQAAAA=</HashCode>
+      <FileName>HTMLModel\HTMLControlFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.HTMLElement" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\HTMLElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.HTMLParameter">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>HTMLModel\HTMLParameter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.HTMLTreeBuilder">
+    <Position X="20.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAIAAgABBAAAAAAAQAAgAAAAAA=</HashCode>
+      <FileName>HTMLModel\HTMLTreeBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.IHTMLControl" Collapsed="true">
+    <Position X="11.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\IHTMLControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.SupportedHtmlControls">
+    <Position X="21.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\SupportedHtmlControls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Witch.GUI.HTMLModel.UnknownElement" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\UnknownElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Witch.GUI.HTMLModel.IInnerTextProperty" Collapsed="true">
+    <Position X="19.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>HTMLModel\IInnerTextProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
