@@ -21,6 +21,7 @@ using Witch.GUI.Rendering;
 
 namespace Witch.GUI
 {
+    /*This file is pure garbage and here just for debug/test purposes*/
     public sealed partial class MainPage : Page
     {
         public MainPage()
