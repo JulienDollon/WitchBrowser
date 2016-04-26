@@ -116,6 +116,7 @@
     <Compile Include="HTML\Model\IInnerTextProperty.cs" />
     <Compile Include="HTML\Model\IMGElement.cs" />
     <Compile Include="HTML\Model\ISourceProperty.cs" />
+    <Compile Include="HTML\Model\ScriptElement.cs" />
     <Compile Include="HTML\SupportedHtmlControls.cs" />
     <Compile Include="HTML\Model\UnknownElement.cs" />
     <Compile Include="MainPage.xaml.cs">
