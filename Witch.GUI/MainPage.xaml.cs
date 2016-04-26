@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Witch.GUI.HTML;
+using Witch.GUI.JavaScript.LexicalAnalysis;
 using Witch.GUI.Rendering;
 
 namespace Witch.GUI
@@ -41,6 +43,33 @@ namespace Witch.GUI
             content = new Sanitizers.Sanitizer().Sanitize(content);
             tree = new HTMLTreeBuilder().BuildTree(content);
             displayTree();
+        }
+
+        private void interpretJavaScript()
+        {
+            var scriptElement = tree.FindScriptElements()[0];
+            List<Token> tokens = executeLexicalAnalysis(scriptElement);
+            displayLexicalAnalysisResults(tokens);
+        }
+
+        private void displayLexicalAnalysisResults(List<Token> tokens)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("Lexical Analysis:");
+            builder.Append(string.Format("Tokens found:{0}\n", tokens.Count));
+
+            foreach (var token in tokens)
+            {
+                builder.Append(string.Format("[{0}:{1}] ", token.Type.ToString(), token.Value));
+            }
+
+            txt_js_output_tree.PlaceholderText = builder.ToString();
+        }
+
+        private List<Token> executeLexicalAnalysis(ScriptElement scriptElement)
+        {
+            JavaScript.LexicalAnalysis.LexicalAnalyzer analyzer = new JavaScript.LexicalAnalysis.LexicalAnalyzer();
+            return analyzer.Tokenize(scriptElement.InnerText);
         }
 
         private void displayTree()
@@ -83,10 +112,11 @@ namespace Witch.GUI
 
         private void txt_input_doc_TextChanged(object sender, RoutedEventArgs e)
         {
-            buildHtml();
             try
             {
+                buildHtml();
                 renderHtml();
+                interpretJavaScript();
                 lbl_compile.Visibility = Visibility.Collapsed;
             }
             catch

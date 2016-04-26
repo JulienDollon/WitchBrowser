@@ -40,5 +40,17 @@ namespace Witch.GUI.HTML
             idsCache.TryGetValue(id, out value);
             return value;
         }
+
+        public List<ScriptElement> FindScriptElements()
+        {
+            List<ScriptElement> scripts = new List<ScriptElement>();
+            NTree<IHTMLControl>.DFS(this.Root, (NTree<IHTMLControl> control) =>
+            {
+                if (control.Data is ScriptElement) {
+                    scripts.Add(control.Data as ScriptElement);
+                }
+            });
+            return scripts;
+        }
     }
 }

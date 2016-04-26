@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="HTMLControlFactoryUnitTests.cs" />
     <Compile Include="HTMLTreeBuilderUnitTests.cs" />
+    <Compile Include="LexicalAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -119,6 +119,11 @@
     <Compile Include="HTML\Model\ScriptElement.cs" />
     <Compile Include="HTML\SupportedHtmlControls.cs" />
     <Compile Include="HTML\Model\UnknownElement.cs" />
+    <Compile Include="JavaScript\LexicalAnalysis\LexicalAnalyzer.cs" />
+    <Compile Include="JavaScript\LexicalAnalysis\LexicalAnalyzerException.cs" />
+    <Compile Include="JavaScript\LexicalAnalysis\LexicalGrammar.cs" />
+    <Compile Include="JavaScript\LexicalAnalysis\Token.cs" />
+    <Compile Include="JavaScript\LexicalAnalysis\TokenType.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

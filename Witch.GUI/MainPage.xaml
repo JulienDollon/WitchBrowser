@@ -19,7 +19,14 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <RichEditBox x:Name="txt_input_doc" Grid.Row="0" TextChanged="txt_input_doc_TextChanged"/>
-        <RichEditBox x:Name="txt_output_tree" Grid.Row="2" IsReadOnly="True" />
+        <Grid Grid.Row="2" d:LayoutOverrides="Height">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <RichEditBox x:Name="txt_output_tree" IsReadOnly="True" />
+            <RichEditBox x:Name="txt_js_output_tree" IsReadOnly="True" Grid.Row="1" d:LayoutOverrides="Height, TopPosition, BottomPosition" />
+        </Grid>
         <TextBlock x:Name="lbl_compile" Text="DOES NOT COMPILE!!!" Visibility="Collapsed" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <ScrollViewer Grid.Column="1" Grid.RowSpan="3">
             <ScrollViewer.Resources>
