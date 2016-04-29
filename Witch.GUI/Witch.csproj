@@ -128,7 +128,7 @@
     <Compile Include="JavaScript\SyntacticalAnalyzer\StatementParser.cs" />
     <Compile Include="JavaScript\SyntacticalAnalyzer\SyntacticalAnalyzer.cs" />
     <Compile Include="JavaScript\SyntacticalAnalyzer\SyntacticalAnalyzerException.cs" />
-    <Compile Include="JavaScript\SyntacticalAnalyzer\SyntaxicTree.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\SyntacticTree.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

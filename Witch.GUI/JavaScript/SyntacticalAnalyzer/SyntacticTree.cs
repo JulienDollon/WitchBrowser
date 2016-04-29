@@ -7,10 +7,10 @@ using Witch.GUI.JavaScript.LexicalAnalysis;
 
 namespace Witch.GUI.JavaScript.SyntacticalAnalyzer
 {
-    public class SyntaxicTree
+    public class SyntacticTree
     {
         public NTree<Token> Root { get; private set; }
-        public SyntaxicTree(NTree<Token> astTree)
+        public SyntacticTree(NTree<Token> astTree)
         {
             if (astTree == null)
             {

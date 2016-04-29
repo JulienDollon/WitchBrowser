@@ -42,11 +42,11 @@ namespace Witch.GUI
             List<Token> tokens = executeLexicalAnalysis(scriptElement);
             displayLexicalAnalysisResults(tokens);
 
-            SyntaxicTree JSTree = executeSyntacticalAnalysis(tokens);
+            SyntacticTree JSTree = executeSyntacticalAnalysis(tokens);
             displaySyntacticalAnalysisResults(JSTree);
         }
 
-        private SyntaxicTree executeSyntacticalAnalysis(List<Token> tokens)
+        private SyntacticTree executeSyntacticalAnalysis(List<Token> tokens)
         {
             SyntacticalAnalyzer analyzer = new SyntacticalAnalyzer();
             return analyzer.Parse(tokens);
@@ -66,7 +66,7 @@ namespace Witch.GUI
             txt_js_output_tree.Document.SetText(Windows.UI.Text.TextSetOptions.None, builder.ToString());
         }
 
-        private void displaySyntacticalAnalysisResults(SyntaxicTree jSTree)
+        private void displaySyntacticalAnalysisResults(SyntacticTree jSTree)
         {
             NTree<Token>.DFS(jSTree.Root, displayJSNode);
         }

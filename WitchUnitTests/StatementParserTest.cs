@@ -35,10 +35,10 @@ namespace WitchUnitTests
         [TestMethod]
         public void Parse_withIfStatement()
         {
-            var testToExecute = "var i = 1 + 2 ; i = i + i ; if (i == 5) { alert('lol') ; } else { alert('i') ; }";
+            var testToExecute = "var i = 1 + 2 ; i = i + i ; if ( i == 5 ) { alert('lol') ; } else { alert('i') ; }";
             var tokens = analyzer.Tokenize(testToExecute);
             var statements = parser.Parse(tokens);
-            Assert.AreEqual(statements.Count, 4);
+            Assert.AreEqual(statements.Count, 6);
         }
     }
 }

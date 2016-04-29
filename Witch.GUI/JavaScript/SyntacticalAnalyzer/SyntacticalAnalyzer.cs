@@ -9,7 +9,7 @@ namespace Witch.GUI.JavaScript.SyntacticalAnalyzer
 {
     public class SyntacticalAnalyzer
     {
-        public SyntaxicTree Parse(List<Token> tokens)
+        public SyntacticTree Parse(List<Token> tokens)
         {
             if (tokens == null)
             {
@@ -17,7 +17,7 @@ namespace Witch.GUI.JavaScript.SyntacticalAnalyzer
             }
 
             NTree<Token> tree = generateAST(tokens);
-            return new SyntaxicTree(tree);
+            return new SyntacticTree(tree);
         }
 
         private NTree<Token> initializeTree()
@@ -44,7 +44,7 @@ namespace Witch.GUI.JavaScript.SyntacticalAnalyzer
 
         private void addStatementNode(NTree<Token> currentPointer, Statement statement)
         {
-            Token rootStatementToken = new Token(TokenType.Statement);
+            Token rootStatementToken = new Token(TokenType.Instruction);
             NTree<Token> rootStatement = currentPointer.AddChild(rootStatementToken, currentPointer);
             //currentPointer = rootStatement;
             foreach (Token token in statement.Tokens)
