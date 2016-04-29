@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Witch.GUI.HTML;
 using Witch.GUI.JavaScript.LexicalAnalysis;
+using Witch.GUI.JavaScript.SyntacticalAnalyzer;
 using Witch.GUI.Rendering;
 
 namespace Witch.GUI
 {
     /*This file is pure garbage and here just for debug/test purposes*/
+    /*Dont even waste to read this code, it will just damage your brain*/
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -51,6 +41,15 @@ namespace Witch.GUI
             var scriptElement = tree.FindScriptElements()[0];
             List<Token> tokens = executeLexicalAnalysis(scriptElement);
             displayLexicalAnalysisResults(tokens);
+
+            SyntaxicTree JSTree = executeSyntacticalAnalysis(tokens);
+            displaySyntacticalAnalysisResults(JSTree);
+        }
+
+        private SyntaxicTree executeSyntacticalAnalysis(List<Token> tokens)
+        {
+            SyntacticalAnalyzer analyzer = new SyntacticalAnalyzer();
+            return analyzer.Parse(tokens);
         }
 
         private void displayLexicalAnalysisResults(List<Token> tokens)
@@ -64,12 +63,27 @@ namespace Witch.GUI
                 builder.Append(string.Format("[{0}:{1}] ", token.Type.ToString(), token.Value));
             }
 
-            txt_js_output_tree.PlaceholderText = builder.ToString();
+            txt_js_output_tree.Document.SetText(Windows.UI.Text.TextSetOptions.None, builder.ToString());
+        }
+
+        private void displaySyntacticalAnalysisResults(SyntaxicTree jSTree)
+        {
+            NTree<Token>.DFS(jSTree.Root, displayJSNode);
+        }
+
+        private void displayJSNode(NTree<Token> node)
+        {
+            int depth = node.ComputeDepth();
+            string increment = new String('=', depth);
+            string dataToDisplay = null;
+            txt_js_syntax_output_tree.Document.GetText(Windows.UI.Text.TextGetOptions.None, out dataToDisplay);
+            dataToDisplay += String.Format("{0} [TokenType:{1};TokenValue:{2}]", increment, node.Data.Type.ToString(), node.Data.Value);
+            txt_js_syntax_output_tree.Document.SetText(Windows.UI.Text.TextSetOptions.None, dataToDisplay);
         }
 
         private List<Token> executeLexicalAnalysis(ScriptElement scriptElement)
         {
-            JavaScript.LexicalAnalysis.LexicalAnalyzer analyzer = new JavaScript.LexicalAnalysis.LexicalAnalyzer();
+            LexicalAnalyzer analyzer = new LexicalAnalyzer();
             return analyzer.Tokenize(scriptElement.InnerText);
         }
 
@@ -89,8 +103,6 @@ namespace Witch.GUI
             int depth = node.ComputeDepth();
             string increment = new String('=', depth);
             string dataToDisplay = String.Format("{0} {1} [ID:{2}]", increment, node.Data.ToString(), node.Data.UniqueId);
-
-
 
             if (node.Data is IInnerTextProperty)
             {
@@ -117,13 +129,13 @@ namespace Witch.GUI
             {
                 buildHtml();
                 renderHtml();
-                interpretJavaScript();
                 lbl_compile.Visibility = Visibility.Collapsed;
             }
             catch
             {
                 lbl_compile.Visibility = Visibility.Visible;
             }
+            interpretJavaScript();
         }
     }
 }

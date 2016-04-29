@@ -119,6 +119,8 @@
     <Compile Include="HTMLTreeBuilderUnitTests.cs" />
     <Compile Include="LexicalAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatementParserTest.cs" />
+    <Compile Include="SyntacticalAnalyzerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

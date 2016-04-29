@@ -124,6 +124,11 @@
     <Compile Include="JavaScript\LexicalAnalysis\LexicalGrammar.cs" />
     <Compile Include="JavaScript\LexicalAnalysis\Token.cs" />
     <Compile Include="JavaScript\LexicalAnalysis\TokenType.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\Statement.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\StatementParser.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\SyntacticalAnalyzer.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\SyntacticalAnalyzerException.cs" />
+    <Compile Include="JavaScript\SyntacticalAnalyzer\SyntaxicTree.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

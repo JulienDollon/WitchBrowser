@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Witch.GUI.JavaScript.LexicalAnalysis
 {
-    public enum TokenType { Operator, Digit, Name, Identifier, Equal };
+    public enum TokenType { Operator, Digit, Name, Identifier, Equal, Root, Statement };
 }

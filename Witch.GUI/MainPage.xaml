@@ -25,10 +25,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <RichEditBox x:Name="txt_output_tree" IsReadOnly="True" />
-            <RichEditBox x:Name="txt_js_output_tree" IsReadOnly="True" Grid.Row="1" d:LayoutOverrides="Height, TopPosition, BottomPosition" />
+            <RichEditBox x:Name="txt_js_output_tree" IsReadOnly="False" Grid.Row="1" d:LayoutOverrides="Height, TopPosition, BottomPosition" />
         </Grid>
         <TextBlock x:Name="lbl_compile" Text="DOES NOT COMPILE!!!" Visibility="Collapsed" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <ScrollViewer Grid.Column="1" Grid.RowSpan="3">
+        <ScrollViewer Grid.Column="1" Grid.RowSpan="2" Grid.Row="1">
             <ScrollViewer.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="14"/>
@@ -46,5 +46,6 @@
                 </ListView.ItemsPanel>
             </ListView>
         </ScrollViewer>
+        <RichEditBox x:Name="txt_js_syntax_output_tree" IsReadOnly="False" d:LayoutOverrides="Height, TopPosition, BottomPosition" Grid.Column="1" />
     </Grid>
 </Page>

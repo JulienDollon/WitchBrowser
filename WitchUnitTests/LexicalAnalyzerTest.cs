@@ -31,5 +31,19 @@ namespace WitchUnitTests
             Assert.AreEqual(tokens[6].Type, TokenType.Identifier);
             Assert.AreEqual(tokens[6].Value, ";");
         }
+
+        [TestMethod]
+        public void Tokenize_withIfElseCondition()
+        {
+            var testToExecute = "var i = 1 + 2 ; i = i + i ; if ( i == 5 ) { alert ( 'lol' ) ; } else { alert ( i ) ; }";
+            var tokens = analyzer.Tokenize(testToExecute);
+            Assert.AreEqual(tokens.Count, 34);
+            Assert.AreEqual(tokens[33].Type, TokenType.Identifier);
+            Assert.AreEqual(tokens[33].Value, "}");
+            Assert.AreEqual(tokens[13].Type, TokenType.Identifier);
+            Assert.AreEqual(tokens[13].Value, "if");
+            Assert.AreEqual(tokens[16].Type, TokenType.Identifier);
+            Assert.AreEqual(tokens[16].Value, "==");
+        }
     }
 }

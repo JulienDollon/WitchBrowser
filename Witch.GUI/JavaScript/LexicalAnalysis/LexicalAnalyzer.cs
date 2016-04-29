@@ -36,27 +36,27 @@ namespace Witch.GUI.JavaScript.LexicalAnalysis
 
             if (grammar.IsIdentifier(content))
             {
-                return new Token(content, TokenType.Identifier);
+                return new Token(TokenType.Identifier, content);
             }
 
             if (grammar.IsOperator(content))
             {
-                return new Token(content, TokenType.Operator);
+                return new Token(TokenType.Operator, content);
             }
 
             if (grammar.IsDigit(content))
             {
-                return new Token(content, TokenType.Digit);
+                return new Token(TokenType.Digit, content);
             }
 
             if (grammar.IsEqual(content))
             {
-                return new Token(content, TokenType.Equal);
+                return new Token(TokenType.Equal, content);
             }
 
             if (grammar.IsName(content))
             {
-                return new Token(content, TokenType.Name);
+                return new Token(TokenType.Name, content);
             }
 
             throw new LexicalAnalyzerException();

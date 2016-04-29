@@ -14,7 +14,7 @@ namespace Witch.GUI.JavaScript.LexicalAnalysis
             return content.Length > 0 && operators.Contains(content);
         }
 
-        private string[] identifiers = new string[] { "var", ";"};
+        private string[] identifiers = new string[] { "var", ";", "if", "else", "{", "}", "(", ")", "=="};
         public bool IsIdentifier(string content)
         {
             return content.Length > 0 && identifiers.Contains(content);
